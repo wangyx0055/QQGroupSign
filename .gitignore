@@ -45,3 +45,4 @@ docs/_build/
 .idea/
 users.db
 users_email.db
+Test.py

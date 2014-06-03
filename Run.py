@@ -8,13 +8,15 @@ import libs.mail
 
 import Config
 from Sign import Sign
+from Login import Login
 import Data
 
 def DoTasker():
     lstUserData = Data.laodUserData()
     emails = []
     for d in lstUserData:
-        skey = Sign.autologin(d[0], d[1], True)['skey']
+        login = Login(d[0], d[1])
+        skey, reason = login.autologin()
         if skey == False:
             #签到失败,删除用户信息,发送邮件提醒
             email = Data.getUserEmailData(d[0])
