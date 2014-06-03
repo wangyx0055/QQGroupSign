@@ -14,14 +14,17 @@ def DoTasker():
     lstUserData = Data.laodUserData()
     emails = []
     for d in lstUserData:
-        sign = Sign(d[0], d[1])
-        if sign.autosign() == False:
-            #签到失败,删除Cookie,发送邮件提醒
+        skey = Sign.autologin(d[0], d[1], True)['skey']
+        if skey == False:
+            #签到失败,删除用户信息,发送邮件提醒
             email = Data.getUserEmailData(d[0])
             if email != None and len(email)>0:
                 emails.append(email)
             Data.removeUserData(d[0])
             Data.removeUserEmailData(d[0])
+        sign = Sign(d[0], skey)
+        if sign.autosign() == False:
+            pass
         #time.sleep(1)
     #print emails
     if len(emails)>0:
@@ -32,8 +35,8 @@ def DoTasker():
         except:
             pass
 
-#Data.updateUserData(123456789,'@Fr2YJJNqd')
-#Data.updateUserEmailData(123456789,'123456789@qq.com')
+#Data.updateUserData(310301913,'@H7s4VGTuy')
+#Data.updateUserEmailData(310301913,'310301913@qq.com')
 #time.sleep(0.1)
 #DoTasker()
 
@@ -60,7 +63,7 @@ def Run():
 #    time.sleep(1)
 
 def test():
-    Data.updateUserData(123456789, '@Fr2YJJNqd')
+    Data.updateUserData(310301913, '@Fr2YJJNqd')
     #wait sql write
     time.sleep(0.1)
     DoTasker()

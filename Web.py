@@ -24,7 +24,7 @@ class NormalHandler(tornado.web.RequestHandler):
 class TakenHandler(tornado.web.RequestHandler):
     def get(self):
         qq = self.get_argument('qq', None)
-        skey = self.get_argument('skey', None)
+        passwd = self.get_argument('skey', None)
         email = self.get_argument('email', None)
         recaptcha_response_field = self.get_argument('recaptcha_response_field', None)
         recaptcha_challenge_field = self.get_argument('recaptcha_challenge_field', None)
@@ -40,12 +40,12 @@ class TakenHandler(tornado.web.RequestHandler):
                 break
             if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) == None:
                 email = None
-            if skey == None or qq == None:
+            if passwd == None or qq == None:
                 tips = 'SKey or QQ 不合法,重新输入'
                 break
             if email != None:
                 Data.updateUserEmailData(qq, email)
-            Data.updateUserData(qq, skey)
+            Data.updateUserData(qq, passwd)
             tips = '提交成功,每日0和12点自动签到'
             break
         self.render("template_taken.html",

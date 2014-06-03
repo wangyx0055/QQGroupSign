@@ -7,9 +7,9 @@ import sqlitedict
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-def updateUserData(qq, skey):
+def updateUserData(qq, passwd):
     mydict = sqlitedict.SqliteDict('users.db', autocommit=True)
-    mydict[qq] = skey
+    mydict[qq] = passwd
     mydict.close()
 
 def updateUserEmailData(qq, email):
